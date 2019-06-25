@@ -151,7 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CSC196.cpp" />
+    <ClCompile Include="Base\assert.cpp" />
+    <ClCompile Include="Base\memory.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Base\assert.h" />
+    <ClInclude Include="Base\memory.h" />
+    <ClInclude Include="Base\smart_ptr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
