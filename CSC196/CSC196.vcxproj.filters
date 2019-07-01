@@ -19,6 +19,12 @@
     <ClCompile Include="Base\memory.cpp">
       <Filter>Base</Filter>
     </ClCompile>
+    <ClCompile Include="Base\heap.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\filesystem.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\assert.h">
@@ -28,6 +34,27 @@
       <Filter>Base</Filter>
     </ClInclude>
     <ClInclude Include="Base\smart_ptr.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\ref_ptr.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\ref_count.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\types.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\heap.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\timer.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\random.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\filesystem.h">
       <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>

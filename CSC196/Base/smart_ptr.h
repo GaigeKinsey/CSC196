@@ -13,8 +13,6 @@ public:
 	T& operator * () { return *m_ptr; }
 	T* operator -> () { return m_ptr; }
 
-
-
 private:
 	T* m_ptr = nullptr;
 };

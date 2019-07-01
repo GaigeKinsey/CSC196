@@ -1,12 +1,14 @@
 #include "memory.h"
+#include "heap.h"
+
 #include <iostream>
 
+heap g_main_heap;
+
 void* operator new (size_t size) {
-	std::cout << "new: " << size << std::endl;
-	return malloc(size);
+	return g_main_heap.allocate(size);
 }
 
 void operator delete (void* ptr, size_t size) {
-	std::cout << "delete: " << size << std::endl;
-	free(ptr);
+	g_main_heap.free(ptr);
 }
