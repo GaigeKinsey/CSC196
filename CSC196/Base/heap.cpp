@@ -50,8 +50,8 @@ void heap::report()
 {
 	std::cout << "currently allocated: " << m_allocated << " bytes." << std::endl;
 	std::cout << "peak allocated: " << m_allocated_peak << " bytes." << std::endl;
-	std::cout << "current number of allocations: " << m_allocations << " bytes." << std::endl;
-	std::cout << "total number of allocations: " << m_allocations_total << " bytes." << std::endl;
+	std::cout << "current number of allocations: " << m_allocations << std::endl;
+	std::cout << "total number of allocations: " << m_allocations_total << std::endl;
 
 	alloc_header* header = m_alloc_head;
 	while (header) {

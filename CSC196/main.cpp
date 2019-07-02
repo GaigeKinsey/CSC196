@@ -51,12 +51,32 @@ int main()
 	//std::cout << mi.count() << std::endl;
 	//std::cout << s.count() << std::endl;
 
-	random_real_t random;
+	//random_real_t random;
+	//for (int i = 0; i < 5; i++) {
+	//	std::cout << random(1.0f, 100.0f) << std::endl;
+	//}
+
+	//std::cout << filesystem::file_exists("test.txt") << std::endl;
+
+	char pathname[255];
+	filesystem::get_current_path(pathname, 255);
+	std::cout << pathname << std::endl;
+	filesystem::create_directory("textures/a/b");
+	filesystem::set_current_path("textures/a");
+
+	std::vector<int> numbers{ 1, 2, 3, 4, 5 };
+	filesystem::write_file("test.txt", numbers.data(), numbers.size() * sizeof(int));
+
+	int* buffer = nullptr;
+	size_t size;
+	filesystem::read_file("test.txt", (void**)(&buffer), size);
+
+	std::vector<int> numbers2;
 	for (int i = 0; i < 5; i++) {
-		std::cout << random(1.0f, 100.0f) << std::endl;
+		numbers2.push_back(*(buffer + i));
 	}
 
-	std::cout << filesystem::file_exists("test.txt") << std::endl;
+	filesystem::free_file(buffer);
 
 	return 0;
 }
