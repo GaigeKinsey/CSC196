@@ -23,7 +23,7 @@ struct vector2
 	float& operator [] (size_t index)
 	{
 		ASSERT(index <= 1);
-		return (&x)[index];;
+		return (&x)[index];
 	}
 
 	// relational operator
