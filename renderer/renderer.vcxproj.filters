@@ -7,7 +7,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="color.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="color.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
