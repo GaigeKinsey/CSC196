@@ -1,6 +1,7 @@
 #include "..\\core\core.h"
 #include "..\\math\math.h"
 #include "..\\renderer\renderer.h"
+#include "..\\framework\factory.h"
 #include "..\\external\core\include\core.h"
 
 #include <iostream>
@@ -8,6 +9,12 @@
 #include <chrono>
 #include <thread>
 #include <random>
+
+class GameObject {};
+class Player : public GameObject {};
+class Enemy : public GameObject {};
+
+Factory<GameObject> factory;
 
 bool Update(float dt)
 {
@@ -34,7 +41,12 @@ void Draw(Core::Graphics& graphics)
 
 int main()
 {
-	char window[] = "CSC195";
+	factory.Register("PLAYER", new Creator <Player, GameObject>);
+	factory.Register("ENEMY", new Creator <Enemy, GameObject>);
+
+	GameObject* go = factory.Create("PLAYER");
+
+	char window[] = "CSC196";
 	Core::Init(window, 800, 600);
 	Core::RegisterUpdateFn(Update);
 	Core::RegisterDrawFn(Draw);
