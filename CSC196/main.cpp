@@ -1,6 +1,4 @@
-#include "..\\core\core.h"
-#include "..\\math\math.h"
-#include "..\\renderer\renderer.h"
+#include "game.h"
 #include "..\\framework\factory.h"
 #include "..\\external\core\include\core.h"
 
@@ -14,10 +12,12 @@ class GameObject {};
 class Player : public GameObject {};
 class Enemy : public GameObject {};
 
-Factory<GameObject> factory;
+random_real_t random;
 
 bool Update(float dt)
 {
+	Game::Instance()->Update(dt);
+
 	bool quit = false;
 	if (Core::Input::IsPressed(Core::Input::KEY_ESCAPE))
 	{
@@ -29,18 +29,20 @@ bool Update(float dt)
 
 void Draw(Core::Graphics& graphics)
 {
-	random_real_t random;
+	Game::Instance()->Draw(graphics);
 
-	color c(1.0f, 0.0f, 0.0f);
-	graphics.SetColor(c);
-
-	vector2 v1(random(800.0f), random(600.0f));
-	vector2 v2(random(800.0f), random(600.0f));
-	graphics.DrawLine(v1.x, v1.y, v2.x, v2.y);
 }
 
 int main()
 {
+	rapidjson::Document document;
+	json::load("test.txt", document);
+	int i = json::get_int(document, "test_int", i);
+
+	Game::Instance()->Startup();
+
+	Factory<GameObject> factory;
+
 	factory.Register("PLAYER", new Creator <Player, GameObject>);
 	factory.Register("ENEMY", new Creator <Enemy, GameObject>);
 
@@ -52,6 +54,8 @@ int main()
 	Core::RegisterDrawFn(Draw);
 	Core::GameLoop();
 	Core::Shutdown();
+
+	Game::Instance()->Shutdown();
 
 	return 0;
 }

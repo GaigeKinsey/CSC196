@@ -19,6 +19,8 @@ template<typename TBase, typename TKey = std::string>
 class Factory
 {
 public:
+	~Factory();
+
 	TBase* Create(TKey key);
 	void Register(TKey key, CreatorBase<TBase>* creator);
 
@@ -26,6 +28,16 @@ private:
 	using registry_t = std::map<TKey, CreatorBase<TBase>*>;
 	registry_t m_registry;
 };
+
+template<typename TBase, typename TKey>
+inline Factory<TBase, TKey>::~Factory()
+{
+	for (const auto& iter : m_registry) {
+		delete iter.second;
+	}
+
+	m_registry.clear();
+}
 
 template<typename TBase, typename TKey>
 inline TBase* Factory<TBase, TKey>::Create(TKey key)
