@@ -10,6 +10,7 @@ bool json::load(const char* filename, rapidjson::Document& document)
 	size_t size;
 
 	if (filesystem::read_file(filename, (void**)& buffer, size)) {
+		buffer[size - 1] = 0;
 		std::cout << buffer;
 		document.Parse(buffer);
 		success = document.IsObject();
@@ -45,7 +46,7 @@ bool json::get_float(const rapidjson::Value& value, const char* property_name, f
 	}
 
 	auto& property = iter->value;
-	if (property.IsFloat() == false) {
+	if (property.IsDouble() == false) {
 		return false;
 	}
 
@@ -96,6 +97,45 @@ bool json::get_vector2(const rapidjson::Value& value, const char* property_name,
 
 	_vector2.x = property[0].GetFloat();
 	_vector2.y = property[1].GetFloat();
+
+	return true;
+}
+
+bool json::get_vector2(const rapidjson::Value& value, const char* property_name, std::vector<vector2>& _vector2)
+{
+	for (rapidjson::SizeType i = 0; i < value.Size(); i++) {
+		const rapidjson::Value& vertex = value[i];
+		if (vertex.IsObject()) {
+			vector2 v2;
+			get_vector2(vertex, property_name, v2);
+			_vector2.push_back(v2);
+		}
+	}
+
+	return true;
+}
+
+bool json::get_color(const rapidjson::Value& value, const char* property_name, color& _color)
+{
+	auto iter = value.FindMember(property_name);
+	if (iter == value.MemberEnd()) {
+		return false;
+	}
+
+	auto& property = iter->value;
+	if (property.IsArray() == false || property.Size() != 3) {
+		return false;
+	}
+
+	for (rapidjson::SizeType i = 0; i < 3; i++) {
+		if (property[i].IsDouble() == false) {
+			return false;
+		}
+	}
+
+	_color.r = property[0].GetFloat();
+	_color.g = property[1].GetFloat();
+	_color.b = property[2].GetFloat();
 
 	return true;
 }

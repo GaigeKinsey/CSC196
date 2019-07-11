@@ -1,15 +1,14 @@
 #pragma once
+
+#include "math.h"
 #include "..\\core\assert.h"
-#include <cmath>
-#include <random>
-#include <algorithm>
 
 struct vector2
 {
 	float x;
 	float y;
 
-	vector2() {}
+	vector2() : x(0.0f), y(0.0f) {}
 	vector2(float x, float y) : x(x), y(y) {}
 
 	void set(float x, float y) { this->x = x; this->y = y; }

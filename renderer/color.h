@@ -7,7 +7,7 @@
 struct color {
 public:
 	float r, g, b;
-	color() { }
+	color() : r(0.0f), g(0.0f), b(0.0f) {}
 	color(float r, float g, float b) : r(r), g(g), b(b) {}
 	void set(float r, float g, float b) { this->r = r; this->g = g; this->b = b; }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\\math\vector2.h"
+#include "..\\renderer\color.h"
 #include "..\\external\rapidjson\document.h"
 
 #include <string>
@@ -12,4 +13,6 @@ namespace json {
 	bool get_string(const rapidjson::Value& value, const char* property_name, std::string& _string);
 	bool get_bool(const rapidjson::Value& value, const char* property_name, bool& _bool);
 	bool get_vector2(const rapidjson::Value& value, const char* property_name, vector2& _vector2);
+	bool get_vector2(const rapidjson::Value& value, const char* property_name, std::vector<vector2>& _vector2);
+	bool get_color(const rapidjson::Value& value, const char* property_name, color& _color);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "actor.h"
 #include "..\\core\core.h"
 #include "..\\framework\singleton.h"
 #include "..\\external\core\include\core.h"
@@ -19,4 +20,5 @@ protected:
 
 private:
 	random_real_t m_random;
+	Actor m_actor;
 };

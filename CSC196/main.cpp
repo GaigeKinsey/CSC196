@@ -35,10 +35,6 @@ void Draw(Core::Graphics& graphics)
 
 int main()
 {
-	rapidjson::Document document;
-	json::load("test.txt", document);
-	int i = json::get_int(document, "test_int", i);
-
 	Game::Instance()->Startup();
 
 	Factory<GameObject> factory;
