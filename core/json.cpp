@@ -74,7 +74,19 @@ bool json::get_string(const rapidjson::Value& value, const char* property_name, 
 
 bool json::get_bool(const rapidjson::Value& value, const char* property_name, bool& _bool)
 {
-	return false;
+	auto iter = value.FindMember(property_name);
+	if (iter == value.MemberEnd()) {
+		return false;
+	}
+
+	auto& property = iter->value;
+	if (property.IsBool() == false) {
+		return false;
+	}
+
+	_bool = property.GetBool();
+
+	return true;
 }
 
 bool json::get_vector2(const rapidjson::Value& value, const char* property_name, vector2& _vector2)
