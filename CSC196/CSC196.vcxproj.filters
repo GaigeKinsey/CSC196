@@ -16,12 +16,24 @@
     <ClCompile Include="actor.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="actor.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

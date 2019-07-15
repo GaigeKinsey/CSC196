@@ -9,13 +9,21 @@
 class Actor {
 public:
 	Actor() {}
+	virtual ~Actor() {}
 
-	void Update(float dt);
-	void Draw(Core::Graphics& graphics);
+	virtual const char* GetType() { return "Actor"; }
 
-	bool Load(const rapidjson::Value& value);
+	virtual void Update(float dt);
+	virtual void Draw(Core::Graphics& graphics);
 
-private:
+	virtual bool Load(const rapidjson::Value& value);
+
+	const std::string& GetName() { return m_name; }
+
+protected:
+	bool destroy = false;
+	std::string m_name;
+
 	transform m_transform;
 	color m_color;
 	std::vector<vector2> m_vertices;

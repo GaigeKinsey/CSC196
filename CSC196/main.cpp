@@ -8,11 +8,11 @@
 #include <thread>
 #include <random>
 
-class GameObject {};
-class Player : public GameObject {};
-class Enemy : public GameObject {};
+//class GameObject {};
+//class Player : public GameObject {};
+//class Enemy : public GameObject {};
 
-random_real_t random;
+//random_real_t random;
 
 bool Update(float dt)
 {
@@ -37,12 +37,12 @@ int main()
 {
 	Game::Instance()->Startup();
 
-	Factory<GameObject> factory;
+	//Factory<GameObject> factory;
 
-	factory.Register("PLAYER", new Creator <Player, GameObject>);
-	factory.Register("ENEMY", new Creator <Enemy, GameObject>);
+	//factory.Register("PLAYER", new Creator <Player, GameObject>);
+	//factory.Register("ENEMY", new Creator <Enemy, GameObject>);
 
-	GameObject* go = factory.Create("PLAYER");
+	//GameObject* go = factory.Create("PLAYER");
 
 	char window[] = "CSC196";
 	Core::Init(window, 800, 600);
