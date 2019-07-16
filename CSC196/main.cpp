@@ -52,6 +52,7 @@ int main()
 	Core::Shutdown();
 
 	Game::Instance()->Shutdown();
+	Game::Instance()->Destroy();
 
 	return 0;
 }

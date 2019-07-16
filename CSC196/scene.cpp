@@ -1,9 +1,10 @@
 #include "scene.h"
 #include "player.h"
+#include "missile.h"
 
 void Scene::Startup()
 {
-	ActorFactory::Instance()->Register("Actor", new Creator<Actor, Actor>());
+	ActorFactory::Instance()->Register("Missile", new Creator<Missile, Actor>());
 	ActorFactory::Instance()->Register("Player", new Creator<Player, Actor>());
 }
 
@@ -19,6 +20,15 @@ void Scene::Update(float dt)
 {
 	for (Actor* actor : m_actors) {
 		actor->Update(dt);
+	}
+
+	for (auto iter = m_actors.begin(); iter != m_actors.end();) {
+		Actor* actor = *iter;
+		iter++;
+		if (actor->destroy) {
+			m_actors.remove(actor);
+			delete actor;
+		}
 	}
 }
 
@@ -39,12 +49,19 @@ bool Scene::Load(const char* filename)
 	if (actors.IsArray()) {
 		LoadActors(actors);
 	}
+	
+	const rapidjson::Value& spawners = document["spawners"];
+
+	if (actors.IsArray()) {
+		LoadSpawners(spawners);
+	}
 
 	return true;
 }
 
 void Scene::AddActor(Actor* actor)
 {
+	actor->SetScene(this);
 	m_actors.push_back(actor);
 }
 
@@ -66,5 +83,16 @@ bool Scene::LoadActors(const rapidjson::Value& value)
 
 bool Scene::LoadSpawners(const rapidjson::Value& value)
 {
-	return false;
+	for (rapidjson::SizeType i = 0; i < value.Size(); i++) {
+		const rapidjson::Value& actor_value = value[i];
+		std::string type;
+		if (json::get_string(actor_value, "type", type)) {
+			Actor* actor = ActorFactory::Instance()->Create(type);
+			if (actor && actor->Load(actor_value)) {
+				ActorFactory::Instance()->Register(actor->GetName(), new Spawner<Actor>(actor));
+			}
+		}
+	}
+
+	return true;
 }

@@ -15,6 +15,20 @@ public:
 	virtual TBase* Create() const { return new T; }
 };
 
+template<typename TBase>
+class Spawner : public CreatorBase<TBase> {
+public:
+	Spawner(TBase* instance) : m_instance(instance) {}
+	virtual ~Spawner() {
+		delete m_instance;
+	}
+
+	virtual TBase* Create() const { return m_instance->Clone(); }
+
+private:
+	TBase* m_instance = nullptr;
+};
+
 template<typename TBase, typename TKey = std::string>
 class Factory
 {
