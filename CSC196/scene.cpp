@@ -23,11 +23,12 @@ void Scene::Update(float dt)
 	}
 
 	for (auto iter = m_actors.begin(); iter != m_actors.end();) {
-		Actor* actor = *iter;
-		iter++;
-		if (actor->destroy) {
-			m_actors.remove(actor);
-			delete actor;
+		if ((*iter)->destroy) {
+			delete *iter;
+			iter = m_actors.erase(iter);
+		}
+		else {
+			iter++;
 		}
 	}
 }

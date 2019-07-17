@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\\core\core.h"
-#include "vector2.h"
+#include "matrix33.h"
 
 struct transform {
 	vector2 translation;
@@ -9,7 +9,9 @@ struct transform {
 	float speed;
 	vector2 scale;
 
-	transform() : rotation(0.0f), speed(1.0f) {}
+	matrix33 mxWorld;
+
+	transform() : rotation(0.0f), speed(0.0f) {}
 	transform(vector2& translation, float rotation, float speed, vector2 scale) :
 		translation(translation),
 		rotation(rotation),
@@ -17,4 +19,5 @@ struct transform {
 		scale(scale) {}
 
 	bool Load(const rapidjson::Value& value);
+	void update();
 };
