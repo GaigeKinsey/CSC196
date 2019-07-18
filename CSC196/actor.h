@@ -22,14 +22,18 @@ public:
 
 	void SetScene(Scene* scene) { m_scene = scene; }
 	const std::string& GetName() { return m_name; }
+	const std::string& GetTag() { return m_tag; }
+	vector2 GetRadius() { return m_radius; }
 	virtual Actor* Clone() { return new Actor(*this); }
 
 public:
-	bool destroy = false;
+	bool m_destroy = false;
 	std::string m_name;
-	Scene* m_scene = nullptr;
+	std::string m_tag;
+	vector2 m_radius;
 
 	transform m_transform;
 	color m_color;
 	std::vector<vector2> m_vertices;
+	Scene* m_scene = nullptr;
 };

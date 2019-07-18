@@ -5,6 +5,7 @@
 template<typename TBase>
 class CreatorBase {
 public:
+	virtual ~CreatorBase() {}
 	virtual TBase* Create() const = 0;
 };
 

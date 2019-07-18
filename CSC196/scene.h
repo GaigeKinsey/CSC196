@@ -26,10 +26,14 @@ public:
 
 	void AddActor(Actor* actor);
 
+	Actor* GetActorByName(const std::string& name);
+	std::vector<Actor*> GetActorsByTag(const std::string& tag);
+
 protected:
 	bool LoadActors(const rapidjson::Value& value);
 	bool LoadSpawners(const rapidjson::Value& value);
 
 private:
 	std::list<Actor*> m_actors;
+	float m_spawnTimer = 0.0f;
 };

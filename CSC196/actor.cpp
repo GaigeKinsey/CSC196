@@ -22,6 +22,7 @@ void Actor::Draw(Core::Graphics& graphics)
 bool Actor::Load(const rapidjson::Value& value)
 {
 	json::get_string(value, "name", m_name);
+	json::get_string(value, "tag", m_tag);
 
 	const rapidjson::Value& tvalue = value["transform"];
 	if (tvalue.IsObject()) {
@@ -33,6 +34,16 @@ bool Actor::Load(const rapidjson::Value& value)
 	if (vvalue.IsArray()) {
 		json::get_vector2(vvalue, "v", m_vertices);
 	}
+
+	for (vector2 v : m_vertices) {
+		if (m_radius.x < v.x) {
+			m_radius.x = v.x;
+		}
+		if (m_radius.y < v.y) {
+			m_radius.y = v.y;
+		}
+	}
+	m_radius = m_radius * m_transform.scale;
 
 	return true;
 }

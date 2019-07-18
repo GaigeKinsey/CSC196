@@ -1,11 +1,13 @@
 #include "scene.h"
 #include "player.h"
 #include "missile.h"
+#include "enemy.h"
 
 void Scene::Startup()
 {
 	ActorFactory::Instance()->Register("Missile", new Creator<Missile, Actor>());
 	ActorFactory::Instance()->Register("Player", new Creator<Player, Actor>());
+	ActorFactory::Instance()->Register("Enemy", new Creator<Enemy, Actor>());
 }
 
 void Scene::Shutdown()
@@ -18,12 +20,23 @@ void Scene::Shutdown()
 
 void Scene::Update(float dt)
 {
+	m_spawnTimer = m_spawnTimer + dt;
+	if (m_spawnTimer >= 4.0f) {
+		m_spawnTimer = 0.0f;
+		Actor* actor = ActorFactory::Instance()->Create("Enemy_Spawner");
+
+		random_real_t random;
+		actor->m_transform.translation = vector2(random(800.0f), random(600.0f));
+		actor->m_transform.rotation = random(math::TWO_PI);
+		AddActor(actor);
+	}
+
 	for (Actor* actor : m_actors) {
 		actor->Update(dt);
 	}
 
 	for (auto iter = m_actors.begin(); iter != m_actors.end();) {
-		if ((*iter)->destroy) {
+		if ((*iter)->m_destroy) {
 			delete *iter;
 			iter = m_actors.erase(iter);
 		}
@@ -64,6 +77,33 @@ void Scene::AddActor(Actor* actor)
 {
 	actor->SetScene(this);
 	m_actors.push_back(actor);
+}
+
+Actor* Scene::GetActorByName(const std::string& name)
+{
+	Actor* actor = nullptr;
+
+	for (Actor* actor_ : m_actors) {
+		if (actor_->GetName() == name) {
+			actor = actor_;
+			break;
+		}
+	}
+
+	return actor;
+}
+
+std::vector<Actor*> Scene::GetActorsByTag(const std::string& tag)
+{
+	std::vector<Actor*> actors;
+
+	for (Actor* actor : m_actors) {
+		if (actor->GetTag() == tag) {
+			actors.push_back(actor);
+		}
+	}
+
+	return actors;
 }
 
 bool Scene::LoadActors(const rapidjson::Value& value)
