@@ -1,24 +1,41 @@
 #pragma once
 
 #include "scene.h"
-#include "..\\core\core.h"
-#include "..\\framework\singleton.h"
-#include "..\\external\core\include\core.h"
 
-class Game : public Singleton<Game> {
+class Game {
 public:
+	enum eState {
+		INIT,
+		TITLE,
+		START_GAME,
+		UPDATE_GAME,
+		GAME_OVER,
+		RESET
+	};
+
+public:
+	Game() {}
+	~Game() {}
+
 	void Startup();
 	void Shutdown();
 
 	void Update(float dt);
 	void Draw(Core::Graphics& graphics);
 
-protected:
-	Game() {}
+	int GetScore() { return m_score; }
+	void SetScore(int score) { m_score = score; }
 
-	friend class Singleton<Game>;
+	int GetLives() { return m_lives; }
+	void SetLives(int lives) { m_lives = lives; }
 
 private:
 	random_real_t m_random;
-	Scene m_scene;
+	Scene* m_scene = nullptr;
+
+	int m_score = 0;
+	int m_lives = 0;
+
+	eState m_state = eState::INIT;
+	float m_stateTimer = 0;
 };

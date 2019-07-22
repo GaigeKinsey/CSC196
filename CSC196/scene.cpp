@@ -5,14 +5,15 @@
 
 void Scene::Startup()
 {
-	ActorFactory::Instance()->Register("Missile", new Creator<Missile, Actor>());
-	ActorFactory::Instance()->Register("Player", new Creator<Player, Actor>());
-	ActorFactory::Instance()->Register("Enemy", new Creator<Enemy, Actor>());
+	m_actorFactory = new ActorFactory;
+	m_actorFactory->Register("Missile", new Creator<Missile, Actor>());
+	m_actorFactory->Register("Player", new Creator<Player, Actor>());
+	m_actorFactory->Register("Enemy", new Creator<Enemy, Actor>());
 }
 
 void Scene::Shutdown()
 {
-	ActorFactory::Destroy();
+	delete m_actorFactory;
 	for (Actor* actor : m_actors) {
 		delete actor;
 	}
@@ -21,9 +22,9 @@ void Scene::Shutdown()
 void Scene::Update(float dt)
 {
 	m_spawnTimer = m_spawnTimer + dt;
-	if (m_spawnTimer >= 4.0f) {
+	if (m_spawnTimer >= 2.0f) {
 		m_spawnTimer = 0.0f;
-		Actor* actor = ActorFactory::Instance()->Create("Enemy_Spawner");
+		Actor* actor = m_actorFactory->Create("Enemy_Spawner");
 
 		random_real_t random;
 		actor->m_transform.translation = vector2(random(800.0f), random(600.0f));
@@ -112,7 +113,7 @@ bool Scene::LoadActors(const rapidjson::Value& value)
 		const rapidjson::Value& actor_value = value[i];
 		std::string type;
 		if (json::get_string(actor_value, "type", type)) {
-			Actor* actor = ActorFactory::Instance()->Create(type);
+			Actor* actor = m_actorFactory->Create(type);
 			if (actor && actor->Load(actor_value)) {
 				AddActor(actor);
 			}
@@ -128,9 +129,9 @@ bool Scene::LoadSpawners(const rapidjson::Value& value)
 		const rapidjson::Value& actor_value = value[i];
 		std::string type;
 		if (json::get_string(actor_value, "type", type)) {
-			Actor* actor = ActorFactory::Instance()->Create(type);
+			Actor* actor = m_actorFactory->Create(type);
 			if (actor && actor->Load(actor_value)) {
-				ActorFactory::Instance()->Register(actor->GetName(), new Spawner<Actor>(actor));
+				m_actorFactory->Register(actor->GetName(), new Spawner<Actor>(actor));
 			}
 		}
 	}

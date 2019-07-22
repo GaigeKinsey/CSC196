@@ -1,5 +1,6 @@
 #include "missile.h"
 #include "scene.h"
+#include "game.h"
 
 void Missile::Update(float dt) {
 	vector2 forward = vector2::rotate(vector2::up, m_transform.rotation);
@@ -17,6 +18,9 @@ void Missile::Update(float dt) {
 	for (Actor* actor : actors) {
 		float distance = vector2::distance(actor->m_transform.translation, m_transform.translation);
 		if (distance <= m_radius.x + actor->m_radius.x || distance <= m_radius.y + actor->m_radius.y) {
+			int score = m_scene->GetGame()->GetScore();
+			m_scene->GetGame()->SetScore(score + 100);
+
 			actor->m_destroy = true;
 			m_destroy = true;
 			break;

@@ -2,18 +2,17 @@
 
 #include "actor.h"
 #include "..\\framework\factory.h"
-#include "..\\framework\singleton.h"
 #include <list>
 
-class ActorFactory : public Factory<Actor>, public Singleton<ActorFactory> {
-protected:
-	ActorFactory() {}
-	friend class Singleton<ActorFactory>;
+class Game;
+
+class ActorFactory : public Factory<Actor> {
+	//
 };
 
 class Scene {
 public:
-	Scene() {}
+	Scene(Game* game) : m_game(game) {}
 	~Scene() {}
 
 	void Startup();
@@ -29,11 +28,17 @@ public:
 	Actor* GetActorByName(const std::string& name);
 	std::vector<Actor*> GetActorsByTag(const std::string& tag);
 
+	Game* GetGame() { return m_game; }
+	ActorFactory* GetActorFactory() { return m_actorFactory; }
+
 protected:
 	bool LoadActors(const rapidjson::Value& value);
 	bool LoadSpawners(const rapidjson::Value& value);
 
 private:
+	Game* m_game;
+	ActorFactory* m_actorFactory = nullptr;
+
 	std::list<Actor*> m_actors;
 	float m_spawnTimer = 0.0f;
 };

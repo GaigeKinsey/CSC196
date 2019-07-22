@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "scene.h"
+#include "game.h"
 
 void Enemy::Update(float dt) {
 	Actor* target = m_scene->GetActorByName("Player");
@@ -12,7 +13,8 @@ void Enemy::Update(float dt) {
 
 		float distance = vector2::distance(target->m_transform.translation, m_transform.translation);
 		if (distance <= m_radius.x + target->m_radius.x || distance <= m_radius.y + target->m_radius.y) {
-			target->m_destroy = true;
+			m_scene->GetGame()->SetLives(m_scene->GetGame()->GetLives() - 1);
+			m_destroy = true;
 		}
 	}
 }

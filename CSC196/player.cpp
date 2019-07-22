@@ -1,8 +1,15 @@
 #include "player.h"
 #include "scene.h"
+#include "game.h"
 
+Player::Player()
+{
+	AudioSystem::Instance()->AddSound("missile", "Audio\\missile.wav");
+}
 
 void Player::Update(float dt) {
+	if (m_scene->GetGame()->GetLives() <= 0) { m_destroy = true; }
+
 	m_fireCooldown = m_fireCooldown + dt;
 
 	if (Core::Input::IsPressed(Core::Input::KEY_LEFT)) m_transform.rotation -= m_rotate * dt;
@@ -20,7 +27,8 @@ void Player::Update(float dt) {
 	if (Core::Input::IsPressed(Core::Input::KEY_SPACE) && m_fireCooldown >= 0.3f) {
 		m_fireCooldown = 0.0f;
 
-		Actor* actor = ActorFactory::Instance()->Create("Missile_Spawner");
+		AudioSystem::Instance()->PlaySounds("missile", false);
+		Actor* actor = m_scene->GetActorFactory()->Create("Missile_Spawner");
 		actor->m_transform.translation = m_transform.translation;
 		actor->m_transform.rotation = m_transform.rotation;
 

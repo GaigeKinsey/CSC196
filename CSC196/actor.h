@@ -5,6 +5,7 @@
 #include "..\\renderer\color.h"
 
 #include "..\\external\core\include\core.h"
+#include "..\\audio\audiosystem.h"
 
 class Scene;
 
