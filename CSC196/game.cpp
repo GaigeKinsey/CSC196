@@ -10,8 +10,10 @@ void Game::Startup()
 
 void Game::Shutdown()
 {
-	m_scene->Shutdown();
-	delete m_scene;
+	if (m_state == eState::UPDATE_GAME) {
+		m_scene->Shutdown();
+		delete m_scene;
+	}
 }
 
 void Game::Update(float dt)
@@ -47,7 +49,6 @@ void Game::Update(float dt)
 		if (m_stateTimer <= 0.0f) {
 			m_state = eState::RESET;
 		}
-		m_scene->Update(dt);
 		break;
 	case Game::RESET:
 		m_scene->Shutdown();

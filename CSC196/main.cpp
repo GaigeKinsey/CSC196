@@ -1,12 +1,5 @@
 #include "game.h"
-#include "..\\framework\factory.h"
 #include "..\\external\core\include\core.h"
-
-#include <iostream>
-#include <assert.h>
-#include <chrono>
-#include <thread>
-#include <random>
 
 Game game;
 

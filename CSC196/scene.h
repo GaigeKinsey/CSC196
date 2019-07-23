@@ -5,6 +5,7 @@
 #include <list>
 
 class Game;
+class ParticleSystem;
 
 class ActorFactory : public Factory<Actor> {
 	//
@@ -30,6 +31,7 @@ public:
 
 	Game* GetGame() { return m_game; }
 	ActorFactory* GetActorFactory() { return m_actorFactory; }
+	ParticleSystem* GetParticleSystem() { return m_particleSystem; }
 
 protected:
 	bool LoadActors(const rapidjson::Value& value);
@@ -37,7 +39,8 @@ protected:
 
 private:
 	Game* m_game;
-	ActorFactory* m_actorFactory = nullptr;
+	ActorFactory* m_actorFactory;
+	ParticleSystem* m_particleSystem;
 
 	std::list<Actor*> m_actors;
 	float m_spawnTimer = 0.0f;

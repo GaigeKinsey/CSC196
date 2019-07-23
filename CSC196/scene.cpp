@@ -2,17 +2,23 @@
 #include "player.h"
 #include "missile.h"
 #include "enemy.h"
+#include "emitter.h"
+#include "..\\effects\particle_system.h"
 
 void Scene::Startup()
 {
+	m_particleSystem = new ParticleSystem(200);
+
 	m_actorFactory = new ActorFactory;
 	m_actorFactory->Register("Missile", new Creator<Missile, Actor>());
 	m_actorFactory->Register("Player", new Creator<Player, Actor>());
 	m_actorFactory->Register("Enemy", new Creator<Enemy, Actor>());
+	m_actorFactory->Register("Emitter", new Creator<Emitter, Actor>());
 }
 
 void Scene::Shutdown()
 {
+	delete m_particleSystem;
 	delete m_actorFactory;
 	for (Actor* actor : m_actors) {
 		delete actor;
@@ -45,6 +51,7 @@ void Scene::Update(float dt)
 			iter++;
 		}
 	}
+	m_particleSystem->Update(dt);
 }
 
 void Scene::Draw(Core::Graphics& graphics)
@@ -52,6 +59,8 @@ void Scene::Draw(Core::Graphics& graphics)
 	for (Actor* actor : m_actors) {
 		actor->Draw(graphics);
 	}
+
+	m_particleSystem->Draw(graphics);
 }
 
 bool Scene::Load(const char* filename)

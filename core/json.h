@@ -15,4 +15,5 @@ namespace json {
 	bool get_vector2(const rapidjson::Value& value, const char* property_name, vector2& _vector2);
 	bool get_vector2(const rapidjson::Value& value, const char* property_name, std::vector<vector2>& _vector2);
 	bool get_color(const rapidjson::Value& value, const char* property_name, color& _color);
+	bool get_color(const rapidjson::Value& value, const char* property_name, std::vector<color>& _colors);
 }

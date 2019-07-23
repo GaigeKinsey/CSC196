@@ -30,20 +30,23 @@ bool Actor::Load(const rapidjson::Value& value)
 	}
 
 	json::get_color(value, "color", m_color);
-	const rapidjson::Value& vvalue = value["vertex"];
-	if (vvalue.IsArray()) {
-		json::get_vector2(vvalue, "v", m_vertices);
-	}
 
-	for (vector2 v : m_vertices) {
-		if (m_radius.x < v.x) {
-			m_radius.x = v.x;
+	if (value.HasMember("vertex")) {
+		const rapidjson::Value& vvalue = value["vertex"];
+		if (vvalue.IsArray()) {
+			json::get_vector2(vvalue, "v", m_vertices);
 		}
-		if (m_radius.y < v.y) {
-			m_radius.y = v.y;
+
+		for (vector2 v : m_vertices) {
+			if (m_radius.x < abs(v.x)) {
+				m_radius.x = abs(v.x);
+			}
+			if (m_radius.y < abs(v.y)) {
+				m_radius.y = abs(v.y);
+			}
 		}
+		m_radius = m_radius * m_transform.scale;
 	}
-	m_radius = m_radius * m_transform.scale;
 
 	return true;
 }

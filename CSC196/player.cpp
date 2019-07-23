@@ -33,6 +33,12 @@ void Player::Update(float dt) {
 		actor->m_transform.rotation = m_transform.rotation;
 
 		m_scene->AddActor(actor);
+
+		actor = m_scene->GetActorFactory()->Create("Explosion_Spawner");
+		actor->m_transform.translation = m_transform.translation;
+		actor->m_transform.rotation = m_transform.rotation;
+
+		m_scene->AddActor(actor);
 	}
 }
 

@@ -89,6 +89,28 @@
 		{ "v":[-1.0,  0.0] },
 		{ "v":[0.0,  1.0] }
    		]
-	}
+	},
+	{
+		"type": "Emitter",
+		"name": "Explosion_Spawner",
+		"tag": "Effect",
+		"lifetime": 0.2,
+		"spawn_rate": 0.001,
+		"lifetime_range": [0.5, 1.0],
+		"velocity_range": [20.0, 40.0],
+		"angle_range": [170.0, 190.0],
+		"damping": 1.0,
+ 		"colors":[
+		{ "c":[1.0, 0.0, 0.0] },
+		{ "c":[0.0, 1.0, 0.0] },
+		{ "c":[0.0, 0.0, 1.0] },
+		{ "c":[1.0, 1.0, 1.0] }
+   		],
+		"transform": {
+		"position": [0.0, 0.0],
+		"rotation": 0.0,
+		"scale": [1.0, 1.0]
+		}
+  	}
 	]
 }

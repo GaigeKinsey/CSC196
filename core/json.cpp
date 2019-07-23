@@ -151,3 +151,17 @@ bool json::get_color(const rapidjson::Value& value, const char* property_name, c
 
 	return true;
 }
+
+bool json::get_color(const rapidjson::Value& value, const char* property_name, std::vector<color>& _colors)
+{
+	for (rapidjson::SizeType i = 0; i < value.Size(); i++) {
+		const rapidjson::Value& color_value = value[i];
+		if (color_value.IsObject()) {
+			color c;
+			get_color(color_value, property_name, c);
+			_colors.push_back(c);
+		}
+	}
+
+	return true;
+}

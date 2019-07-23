@@ -91,3 +91,6 @@ private:
 
 using random_t = random<>;
 using random_real_t = random_real<>;
+
+extern random_real_t g_random;
+extern random_t g_random_int;

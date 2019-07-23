@@ -28,6 +28,9 @@
     <ClCompile Include="enemy.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="emitter.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -46,6 +49,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="emitter.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
