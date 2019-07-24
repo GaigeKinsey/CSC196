@@ -2,6 +2,11 @@
 #include "scene.h"
 #include "game.h"
 
+Missile::Missile()
+{
+	AudioSystem::Instance()->AddSound("explosion", "Audio\\explosion.wav");
+}
+
 void Missile::Update(float dt) {
 	vector2 forward = vector2::rotate(vector2::up, m_transform.rotation);
 	m_transform.translation += forward * m_speed * dt;
@@ -18,6 +23,12 @@ void Missile::Update(float dt) {
 	for (Actor* actor : actors) {
 		float distance = vector2::distance(actor->m_transform.translation, m_transform.translation);
 		if (distance <= m_radius.x + actor->m_radius.x || distance <= m_radius.y + actor->m_radius.y) {
+			AudioSystem::Instance()->PlaySounds("explosion", false);
+			Actor* explosion = m_scene->GetActorFactory()->Create("Impact_Spawner");
+			explosion->m_transform.translation = m_transform.translation;
+			explosion->m_transform.rotation = m_transform.rotation;
+			m_scene->AddActor(explosion);
+
 			int score = m_scene->GetGame()->GetScore();
 			m_scene->GetGame()->SetScore(score + 100);
 

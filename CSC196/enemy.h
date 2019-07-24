@@ -4,7 +4,7 @@
 
 class Enemy : public Actor {
 public:
-	Enemy() {}
+	Enemy();
 	virtual ~Enemy() {};
 
 	const char* GetType() { return "Enemy"; }

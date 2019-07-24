@@ -7,7 +7,7 @@
 
 void Scene::Startup()
 {
-	m_particleSystem = new ParticleSystem(200);
+	m_particleSystem = new ParticleSystem(2000);
 
 	m_actorFactory = new ActorFactory;
 	m_actorFactory->Register("Missile", new Creator<Missile, Actor>());

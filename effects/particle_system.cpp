@@ -4,7 +4,7 @@ ParticleSystem::ParticleSystem(size_t size)
 {
 	m_particle_pool = new PoolAllocator<Particle>(size);
 }
-
+	
 ParticleSystem::~ParticleSystem()
 {
 	delete m_particle_pool;
@@ -13,13 +13,15 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::Update(float dt)
 {
 	for (Particle* particle : m_particles) {
-  		particle->lifetime = particle->lifetime - dt;
-		particle->active = (particle->lifetime >= 0.0f);
+		if (particle) {
+			particle->lifetime = particle->lifetime - dt;
+			particle->active = (particle->lifetime >= 0.0f);
 
-		if (particle->active) {
-			particle->prev_position = particle->position;
-			particle->position = particle->position + (particle->velocity * dt);
-			particle->velocity = particle->velocity * particle->damping;
+			if (particle->active) {
+				particle->prev_position = particle->position;
+				particle->position = particle->position + (particle->velocity * dt);
+				particle->velocity = particle->velocity * particle->damping;
+			}
 		}
 	}
 
@@ -53,7 +55,7 @@ void ParticleSystem::Create(const vector2& position, const vector2& velocity, co
 		particle->color_ = color_;
 		particle->damping = damping;
 		particle->lifetime = lifetime;
-	}
 
-	m_particles.push_back(particle);
+		m_particles.push_back(particle);
+	}
 }

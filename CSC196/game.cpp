@@ -10,7 +10,7 @@ void Game::Startup()
 
 void Game::Shutdown()
 {
-	if (m_state == eState::UPDATE_GAME) {
+	if (m_scene) {
 		m_scene->Shutdown();
 		delete m_scene;
 	}
@@ -29,7 +29,7 @@ void Game::Update(float dt)
 		}
 		break;
 	case Game::START_GAME:
-		m_lives = 3;
+		m_lives = 5;
 		m_score = 0;
 		m_scene = new Scene(this);
 		m_scene->Startup();
@@ -53,6 +53,7 @@ void Game::Update(float dt)
 	case Game::RESET:
 		m_scene->Shutdown();
 		delete m_scene;
+		m_scene = nullptr;
 
 		AudioSystem::Instance()->Shutdown();
 

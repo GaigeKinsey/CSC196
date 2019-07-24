@@ -4,7 +4,7 @@
 
 class Missile : public Actor {
 public:
-	Missile() {}
+	Missile();
 	virtual ~Missile() {};
 
 	const char* GetType() { return "Missile"; }

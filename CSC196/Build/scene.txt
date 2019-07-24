@@ -94,9 +94,9 @@
 		"type": "Emitter",
 		"name": "Explosion_Spawner",
 		"tag": "Effect",
-		"lifetime": 0.2,
+		"lifetime": 0.1,
 		"spawn_rate": 0.001,
-		"lifetime_range": [0.5, 1.0],
+		"lifetime_range": [0.5, 0.7],
 		"velocity_range": [20.0, 40.0],
 		"angle_range": [170.0, 190.0],
 		"damping": 1.0,
@@ -105,6 +105,46 @@
 		{ "c":[0.0, 1.0, 0.0] },
 		{ "c":[0.0, 0.0, 1.0] },
 		{ "c":[1.0, 1.0, 1.0] }
+   		],
+		"transform": {
+		"position": [0.0, 0.0],
+		"rotation": 0.0,
+		"scale": [1.0, 1.0]
+		}
+  	},
+	{
+		"type": "Emitter",
+		"name": "Impact_Spawner",
+		"tag": "Effect",
+		"lifetime": 0.2,
+		"spawn_rate": 0.001,
+		"lifetime_range": [1.0, 1.2],
+		"velocity_range": [20.0, 40.0],
+		"angle_range": [0.0, 360.0],
+		"damping": 1.0,
+ 		"colors":[
+		{ "c":[0.0, 0.0, 1.0] },
+		{ "c":[0.0, 1.0, 0.0] }
+   		],
+		"transform": {
+		"position": [0.0, 0.0],
+		"rotation": 0.0,
+		"scale": [1.0, 1.0]
+		}
+  	},
+	{
+		"type": "Emitter",
+		"name": "Damage_Spawner",
+		"tag": "Effect",
+		"lifetime": 0.1,
+		"spawn_rate": 0.001,
+		"lifetime_range": [0.3, 0.5],
+		"velocity_range": [40.0, 60.0],
+		"angle_range": [100.0, 260.0],
+		"damping": 1.0,
+ 		"colors":[
+		{ "c":[1.0, 0.0, 0.0] },
+		{ "c":[0.0, 1.0, 0.0] }
    		],
 		"transform": {
 		"position": [0.0, 0.0],

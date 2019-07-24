@@ -39,8 +39,8 @@ protected:
 
 private:
 	Game* m_game;
-	ActorFactory* m_actorFactory;
-	ParticleSystem* m_particleSystem;
+	ActorFactory* m_actorFactory = nullptr;
+	ParticleSystem* m_particleSystem = nullptr;
 
 	std::list<Actor*> m_actors;
 	float m_spawnTimer = 0.0f;

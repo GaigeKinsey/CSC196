@@ -5,8 +5,8 @@
 void Emitter::Update(float dt)
 {
 	m_spawn_timer = m_spawn_timer + dt;
-	if (m_spawn_timer >= m_spawn_rate) {
-		m_spawn_timer = 0.0f;
+	while (m_spawn_timer >= m_spawn_rate) {
+		m_spawn_timer = m_spawn_timer - m_spawn_rate;
 
 		float lifetime = g_random(m_lifetime_range[0], m_lifetime_range[1]);
 		float velocity = g_random(m_velocity_range[0], m_velocity_range[1]);
